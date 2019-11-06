@@ -22,9 +22,34 @@ const add = async (scheme) => {
     return newScheme
 }
 
+const update = async (changes, id) => {
+    await db('schemes')
+        .where({id})
+        .update(changes)
+    let newScheme = await db('schemes')
+        .where({id})
+    return newScheme[0]
+}
+
+const remove = async (id) => {
+    try{
+        let delScheme = await db('schemes')
+        .where({id})
+        await db('schemes')
+        .where({id})
+        .del()
+    return delScheme[0]
+    }
+    catch (error){
+        return null;
+    }
+}
+
 module.exports = {
     find,
     findById,
     findSteps,
-    add
+    add,
+    update,
+    remove
 }
