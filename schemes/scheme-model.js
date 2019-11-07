@@ -45,11 +45,24 @@ const remove = async (id) => {
     }
 }
 
+const addStep = async (step, scheme_id) => {
+    try{
+        const query = {...step, scheme_id: scheme_id}
+        let id = await db('steps').insert(query)
+        let result = await db('steps').where({id: id[0]})
+        return result[0]
+    }
+    catch (error) {
+        return null
+    }
+}
+
 module.exports = {
     find,
     findById,
     findSteps,
     add,
     update,
-    remove
+    remove,
+    addStep
 }
